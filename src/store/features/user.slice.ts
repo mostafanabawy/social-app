@@ -41,7 +41,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            state.token = null; // Clear the token from Redux state
+            state.token = undefined; // Clear the token from Redux state
             Cookies.remove("token"); // Remove the token from localStorage
             toast.success("Logged out successfully!"); // Optional: Show a notification
         }

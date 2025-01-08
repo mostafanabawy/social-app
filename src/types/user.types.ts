@@ -1,6 +1,6 @@
 
 export type userState = {
-    token: null | string
+    token: undefined | string
 }
 
 export interface UserData {
