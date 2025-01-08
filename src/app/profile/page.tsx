@@ -21,13 +21,12 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Grid from '@mui/material/Grid2';
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { UserData } from "@/types/user.types";
 
 
 const drawerWidth = 240;
 
-interface Props {
-    window?: () => Window;
-}
+
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
     clipPath: 'inset(50%)',
@@ -40,11 +39,9 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
-export default function ProfilePage(props: Props) {
+export default function ProfilePage() {
     const { token } = useAppSelector((store) => store.userReducer);
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [userData, setUserData] = React.useState(null);
+    const [userData, setUserData] = React.useState<null | UserData>(null);
     /* API logged user */
     async function getLoggedInUser() {
         try {
@@ -63,12 +60,16 @@ export default function ProfilePage(props: Props) {
         }
     }
     /* API upload profile pic */
-    const file = React.useRef(null)
+    const file = React.useRef<HTMLInputElement | null>(null)
     async function uploadProfilePic() {
-        console.log(file.current.files[0]);
         try {
+            if (!file.current || !file.current.files || file.current.files.length === 0) {
+                toast.error("Error uploading picture, please try again!");
+                return;
+            }
             const formData = new FormData();
             formData.append("photo", file.current.files[0]);
+
             const options = {
                 url: "https://linked-posts.routemisr.com/users/upload-photo",
                 method: "PUT",
@@ -117,7 +118,6 @@ export default function ProfilePage(props: Props) {
         </div>
     );
 
-    const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
         <Box sx={{ display: "flex", zIndex: 90, justifyItems: 'center' }}>
@@ -132,25 +132,11 @@ export default function ProfilePage(props: Props) {
                 }}
                 aria-label="menu items"
             >
-                {/* Mobile Drawer */}
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    open={mobileOpen}
-                    onClose={() => setMobileOpen(!mobileOpen)}
-                    ModalProps={{ keepMounted: true }}
-                    sx={{
-                        display: { xs: "block", sm: "none" },
-                        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
-                    }}
-                >
-                    {drawer}
-                </Drawer>
                 {/* Permanent Drawer */}
                 <Drawer
                     variant="permanent"
                     sx={{
-                        display: { xs: "none", sm: "block" },
+                        display: { display: "block" },
                         "& .MuiDrawer-paper": {
                             boxSizing: "border-box",
                             width: drawerWidth,
@@ -188,7 +174,7 @@ export default function ProfilePage(props: Props) {
                     }}
                 >
                     {/* profile pic display */}
-                    <Box sx={{display: 'flex', alignItems: 'center'}}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         {userData && <>
                             {!userData.photo.includes('default') ? <Image src={userData.photo} width={60} height={50} className="rounded-full shadow-lg" alt={userData.name} /> :
                                 <AccountCircleIcon sx={{ fontSize: "60px" }} className="text-slate-600" />
