@@ -19,7 +19,7 @@ export const signup = createAsyncThunk('user/signup', async (values: {
             method: 'POST',
             data: values
         }
-        let { data } = await axios.request(options);
+        const { data } = await axios.request(options);
         return data;
 })
 export const login = createAsyncThunk('user/login', async (values: { email: string, password: string }) => {
@@ -28,7 +28,7 @@ export const login = createAsyncThunk('user/login', async (values: { email: stri
         method: 'POST',
         data: values
     }
-    let { data } = await axios.request(options);
+    const { data } = await axios.request(options);
     return data;
     
 })

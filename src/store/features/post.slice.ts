@@ -57,14 +57,14 @@ const postSlice = createSlice({
             }
             state.paginationInfo = action.payload.paginationInfo;
         })
-        builder.addCase(getPosts.rejected, (state, action) => {
+        builder.addCase(getPosts.rejected, () => {
             console.log("no");
         })
         builder.addCase(getPostDetail.fulfilled, (state, action) => {
             console.log(action.payload);
             state.postDetail = action.payload
         })
-        builder.addCase(getPostDetail.rejected, (state, action) => {
+        builder.addCase(getPostDetail.rejected, () => {
             console.log("no");
         })
     }
