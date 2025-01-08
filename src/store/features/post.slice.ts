@@ -2,9 +2,10 @@ import { postsState } from "@/types/posts.types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Post } from "@/types/posts.types";
+import { RootState } from "../store";
 
 export const getPosts = createAsyncThunk("posts/getPosts", async (page: number, { getState }) => {
-    const state: any = getState();
+    const state = getState() as RootState;
     const token = state.userReducer.token
     const options = {
         url: `https://linked-posts.routemisr.com/posts?limit=10&page=${page}`,
@@ -20,7 +21,7 @@ export const getPosts = createAsyncThunk("posts/getPosts", async (page: number, 
     return data;
 })
 export const getPostDetail = createAsyncThunk("posts/getPostDetail", async (postId: string, { getState }) => {
-    const state: any = getState();
+    const state = getState() as RootState;
     const token = state.userReducer.token
     const options = {
         url: `https://linked-posts.routemisr.com/posts/${postId}`,

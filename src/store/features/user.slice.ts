@@ -57,7 +57,7 @@ const userSlice = createSlice({
             console.log("no", action.error); // Ensure it logs
             toast.error("login failed!!!"); // Ensure this is reached
         })
-        builder.addCase(signup.fulfilled, (state, action) => {
+        builder.addCase(signup.fulfilled, () => {
             console.log("yes")
             toast.success("signup successful!!!")
         })
