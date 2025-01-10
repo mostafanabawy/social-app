@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  trailingSlash: true,
   images:{
     remotePatterns: [
       {
@@ -11,8 +12,5 @@ const nextConfig: NextConfig = {
       }
     ]
   }
-};
-module.exports = {
-  trailingSlash: true, // Optional: adds a trailing slash to all routes
 };
 export default nextConfig;
