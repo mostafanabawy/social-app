@@ -12,4 +12,7 @@ const nextConfig: NextConfig = {
     ]
   }
 };
+module.exports = {
+  trailingSlash: true, // Optional: adds a trailing slash to all routes
+};
 export default nextConfig;
