@@ -128,7 +128,7 @@ export default function PostCard({ postData }: { postData: Post }) {
 
             </CardActions>
             <Divider>Comments</Divider>
-            {path === `/postDetail/${postData._id}` ?
+            {path === `/postDetail/${postData._id}/` ?
                 postData.comments.length > 0 && <Box sx={{ p: 2 }}>
                     <TextField multiline minRows={2} placeholder='Write a Comment...' fullWidth sx={{ mt: 1 }}
                         inputRef={inputRef}
@@ -136,6 +136,7 @@ export default function PostCard({ postData }: { postData: Post }) {
                         onKeyUp={(e) => { if (e.key === 'Enter') handleSubmit(); }}
                     />
                     <Button variant='contained' fullWidth sx={{ mt: 0, mb: 2 }} onClick={handleSubmit}>Send</Button>
+
                     {firstComment && firstComment.map((typedComment: Comments) => <CommentCard commentInfo={typedComment} key={typedComment._id} />)}
                     {comments.map((comment, index) => {
                         if (index === comments.length - 1) {
