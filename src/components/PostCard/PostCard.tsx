@@ -128,7 +128,7 @@ export default function PostCard({ postData }: { postData: Post }) {
 
             </CardActions>
             <Divider>Comments</Divider>
-            {path === `/postDetail/${postData._id}/` ?
+            {path === `/postDetail/${postData._id}` ?
                 postData.comments.length > 0 && <Box sx={{ p: 2 }}>
                     <TextField multiline minRows={2} placeholder='Write a Comment...' fullWidth sx={{ mt: 1 }}
                         inputRef={inputRef}
